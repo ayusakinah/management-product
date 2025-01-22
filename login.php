@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'service.php';
 
 // Checking email & password
 if(isset($_POST['login'])) {

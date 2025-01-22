@@ -65,11 +65,11 @@ require 'check.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Data Product</h1>
+                        <h1 class="mt-4">Supply Product</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                                Add Product
+                                Add Supply Product
                             </button>
                             </div>
                             <div class="card-body">
@@ -129,22 +129,31 @@ require 'check.php';
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title">Modal Heading</h4>
+            <h4 class="modal-title">Add Supply Product</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
         <!-- Modal body -->
         <form method="post">
             <div class="modal-body">
-                <input type="text" name="name" placeholder="product name" class ="form-control" required>
+                <select name="product" class="form-control">
+                    <?php  
+                        $getalldata = mysqli_query($conn, "select * from product");
+                        while($fetcharray = mysqli_fetch_array($getalldata)) {
+                            $name = $fetcharray['product_name'];
+                            $idproduct = $fetcharray['product_id'];
+                    ?>
+                    <option value="<?=$idproduct;?>"><?=$name;?></option>
+                    <?php
+                        }
+                    ?>
+                </select>
                 <br>
-                <input type="text" name="description" placeholder="product deskripsi" class ="form-control" required>
+                <input type="number" name="qty" class ="form-control" placeholder="Quantity" required>
                 <br>
-                <input type="number" name="price" class ="form-control" placeholder="price" required>
+                <input type="text" name="receiver" class ="form-control" placeholder="Receiver" required>
                 <br>
-                <input type="number" name="stock" class ="form-control" placeholder="stock" required>
-                <br>
-                <button type="submit" class="btn btn-primary" name="addproduct">Submit</button>
+                <button type="submit" class="btn btn-primary" name="supplyproduct">Submit</button>
             </div>
         </form>
         </div>

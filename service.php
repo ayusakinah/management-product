@@ -15,6 +15,23 @@ if(isset($_POST['addproduct'])) {
 
     if($addtotable) {
         header('location:index.php');
+    } else {
+        header('location:index.php');
+    }
+}
+
+// Tambah supply product
+if(isset($_POST['supplyproduct'])) {
+    $product = $_POST['product'];
+    $receiver = $_POST['receiver'];
+    $quantity = $_POST['qty']
+
+    $addsupply = mysqli_query($conn, "insert into supply (id_product, quantity, receiver) values('$product', '$quantity, '$receiver')");
+
+    if($addsupply) {
+        header('location:index.php');
+    } else {
+        header('location:index.php');
     }
 }
 
