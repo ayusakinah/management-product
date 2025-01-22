@@ -1,6 +1,5 @@
 <?php
 require 'function.php';
-session_start();
 
 // Checking email & password
 if(isset($_POST['login'])) {
@@ -18,6 +17,12 @@ if(isset($_POST['login'])) {
     } else {
         header('location:login.php');
     }
+}
+
+if(!isset($_SESSION['log'])) {
+
+} else {
+    header('location:index.php');
 }
 
 ?>
