@@ -24,11 +24,16 @@ if(isset($_POST['addproduct'])) {
 if(isset($_POST['supplyproduct'])) {
     $product = $_POST['product'];
     $receiver = $_POST['receiver'];
-    $quantity = $_POST['qty']
+    $quantity = $_POST['qty'];
 
-    $addsupply = mysqli_query($conn, "insert into supply (id_product, quantity, receiver) values('$product', '$quantity, '$receiver')");
+    $checkstock = mysqli_query($conn, "select * from product where product_id='$product'");
+    $getstock = mysqli_fetch_array($checkstock);
+    $stock = $getstock['stock'];
+    $addstockqtysupply = $stock + $quantity;
 
-    if($addsupply) {
+    $addsupply = mysqli_query($conn, "insert into supply (id_product, quantity, receiver) values('$product', '$quantity', '$receiver')");
+    $updatestock = mysqli_query($conn, "update product set stock='$addstockqtysupply' where product_id='$product'");
+    if($addsupply && $updatestock) {
         header('location:index.php');
     } else {
         header('location:index.php');
