@@ -14,6 +14,15 @@ require 'check.php';
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+            .zoomable {
+                width: 80px;
+            }
+            .zoomable:hover {
+                transform: scale(1.2);
+                transition: 0.3s ease;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -95,9 +104,18 @@ require 'check.php';
                                                 $description = $data['deskripsi'];
                                                 $price = $data['price'];
                                                 $stock = $data['stock'];
+
+                                                // checking there has image or not
+                                                $image = $data['image'];
+                                                if($image==null) {
+                                                    $img = 'No Photo';
+                                                } else {
+                                                    $img = '<img src="images/'.$image.'" class="zoomable">';
+                                                }
                                         ?>
                                         <tr>
                                             <td><?=$i++;?></td>
+                                            <td><?=$img;?></td>
                                             <td><?=$name;?></td>
                                             <td><?=$description;?></td>
                                             <td><?=$price;?></td>
@@ -124,11 +142,13 @@ require 'check.php';
                                                     </div>
 
                                                     <!-- Modal body -->
-                                                    <form method="post">
+                                                    <form method="post" enctype="multipart/form-data">
                                                         <div class="modal-body">
                                                             <input type="text" name="name" value="<?=$name;?>" class ="form-control" required>
                                                             <br>
                                                             <input type="text" name="description" value="<?=$description;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="file" name="file" class ="form-control">
                                                             <br>
                                                             <input type="hidden" name="idproduct" value="<?=$idproduct;?>">
                                                             <button type="submit" class="btn btn-primary" name="update">Save</button>
