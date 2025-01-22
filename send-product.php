@@ -65,11 +65,11 @@ require 'check.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Supply Product</h1>
+                        <h1 class="mt-4">Send Product</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                                Add Supply Product
+                                Add Product to Send
                             </button>
                             </div>
                             <div class="card-body">
@@ -129,7 +129,7 @@ require 'check.php';
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title">Add Supply Product</h4>
+            <h4 class="modal-title">Add Product to Send</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
@@ -153,7 +153,7 @@ require 'check.php';
                 <br>
                 <input type="text" name="receiver" class ="form-control" placeholder="Receiver" required>
                 <br>
-                <button type="submit" class="btn btn-primary" name="supplyproduct">Submit</button>
+                <button type="submit" class="btn btn-primary" name="sendproduct">Submit</button>
             </div>
         </form>
         </div>

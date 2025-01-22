@@ -16,7 +16,7 @@ if(isset($_POST['addproduct'])) {
     if($addtotable) {
         header('location:index.php');
     } else {
-        header('location:index.php');
+        header('location:500.html');
     }
 }
 
@@ -34,9 +34,29 @@ if(isset($_POST['supplyproduct'])) {
     $addsupply = mysqli_query($conn, "insert into supply (id_product, quantity, receiver) values('$product', '$quantity', '$receiver')");
     $updatestock = mysqli_query($conn, "update product set stock='$addstockqtysupply' where product_id='$product'");
     if($addsupply && $updatestock) {
-        header('location:index.php');
+        header('location:supply-product.php');
     } else {
-        header('location:index.php');
+        header('location:500.html');
+    }
+}
+
+// Tambah send product
+if(isset($_POST['sendproduct'])) {
+    $product = $_POST['product'];
+    $receiver = $_POST['receiver'];
+    $quantity = $_POST['qty'];
+
+    $checkstock = mysqli_query($conn, "select * from product where product_id='$product'");
+    $getstock = mysqli_fetch_array($checkstock);
+    $stock = $getstock['stock'];
+    $subtstockqtysend = $stock - $quantity;
+
+    $addsend = mysqli_query($conn, "insert into send (id_product, quantity, receiver) values('$product', '$quantity', '$receiver')");
+    $updatestock = mysqli_query($conn, "update product set stock='$subtstockqtysend' where product_id='$product'");
+    if($addsend && $updatestock) {
+        header('location:send-product.php');
+    } else {
+        header('location:500.html');
     }
 }
 
