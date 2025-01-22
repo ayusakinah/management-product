@@ -81,18 +81,28 @@ require 'check.php';
                                             <th>Description</th>
                                             <th>Price</th>
                                             <th>Stock</th>
-                                            <th>Image</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $getallproduct = mysqli_query($conn, "select * from product");
+                                            while($data = mysqli_fetch_array($getallproduct)) {
+                                                $i = 1;
+                                                $name = $data['product_name'];
+                                                $description = $data['deskripsi'];
+                                                $price = $data['price'];
+                                                $stock = $data['stock'];
+                                        ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td>TV Sharp 001</td>
-                                            <td>Smart Television</td>
-                                            <td>4500000</td>
-                                            <td>7</td>
-                                            <td>img.png</td>
+                                            <td><?=$i++;?></td>
+                                            <td><?=$name;?></td>
+                                            <td><?=$description;?></td>
+                                            <td><?=$price;?></td>
+                                            <td><?=$stock;?></td>
                                         </tr>
+                                        <?php
+                                            };
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

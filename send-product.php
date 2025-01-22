@@ -74,25 +74,32 @@ require 'check.php';
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
-                                    <thead>
+                                <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Date</th>
                                             <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th>Image</th>
+                                            <th>Quantity</th>
+                                            <th>Receiver</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
+                                            $getallproduct = mysqli_query($conn, "select * from send s, product p where p.product_id = s.id_product");
+                                            while($data = mysqli_fetch_array($getallproduct)) {
+                                                $date = $data['date'];
+                                                $name = $data['product_name'];
+                                                $qty = $data['quantity'];
+                                                $receiver = $data['receiver'];
+                                        ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td>TV Sharp 001</td>
-                                            <td>Smart Television</td>
-                                            <td>4500000</td>
-                                            <td>7</td>
-                                            <td>img.png</td>
+                                            <td><?=$date;?></td>
+                                            <td><?=$name;?></td>
+                                            <td><?=$qty;?></td>
+                                            <td><?=$receiver;?></td>
                                         </tr>
+                                        <?php
+                                            };
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
