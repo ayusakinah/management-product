@@ -80,23 +80,87 @@ require 'check.php';
                                             <th>Name</th>
                                             <th>Quantity</th>
                                             <th>Note</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                             $getallproduct = mysqli_query($conn, "select * from supply s, product p where p.product_id = s.id_product");
                                             while($data = mysqli_fetch_array($getallproduct)) {
+                                                $idproduct = $data['product_id'];
                                                 $date = $data['date'];
                                                 $name = $data['product_name'];
                                                 $qty = $data['quantity'];
-                                                $receiver = $data['receiver'];
+                                                $note = $data['receiver'];
                                         ?>
                                         <tr>
                                             <td><?=$date;?></td>
                                             <td><?=$name;?></td>
                                             <td><?=$qty;?></td>
-                                            <td><?=$receiver;?></td>
+                                            <td><?=$note;?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?=$idproduct;?>">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$idproduct;?>">
+                                                    Delete
+                                                </button>
+                                            </td>
                                         </tr>
+
+                                        <!-- Edit Modal -->
+                                        <div class="modal fade" id="edit<?=$idproduct;?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Edit Product</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <form method="post">
+                                                        <div class="modal-body">
+                                                            <input type="text" name="name" value="<?=$name;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="text" name="note" value="<?=$note;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="number" name="qty" value="<?=$qty;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="hidden" name="idproduct" value="<?=$idproduct;?>">
+                                                            <button type="submit" class="btn btn-primary" name="update">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="delete<?=$idproduct;?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Delete Product?</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <form method="post">
+                                                        <div class="modal-body">
+                                                            Are you sure want delete <?=$name;?>?
+                                                            <input type="hidden" name="idproduct" value="<?=$idproduct;?>">
+                                                            <br>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <?php
                                             };
                                         ?>

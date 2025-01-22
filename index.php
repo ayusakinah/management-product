@@ -77,17 +77,20 @@ require 'check.php';
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Image</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Price</th>
                                             <th>Stock</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                             $getallproduct = mysqli_query($conn, "select * from product");
+                                            $i = 1;
                                             while($data = mysqli_fetch_array($getallproduct)) {
-                                                $i = 1;
+                                                $idproduct = $data['product_id'];
                                                 $name = $data['product_name'];
                                                 $description = $data['deskripsi'];
                                                 $price = $data['price'];
@@ -99,7 +102,67 @@ require 'check.php';
                                             <td><?=$description;?></td>
                                             <td><?=$price;?></td>
                                             <td><?=$stock;?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?=$idproduct;?>">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$idproduct;?>">
+                                                    Delete
+                                                </button>
+                                            </td>
                                         </tr>
+
+                                        <!-- Edit Modal -->
+                                        <div class="modal fade" id="edit<?=$idproduct;?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Edit Product</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <form method="post">
+                                                        <div class="modal-body">
+                                                            <input type="text" name="name" value="<?=$name;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="text" name="description" value="<?=$description;?>" class ="form-control" required>
+                                                            <br>
+                                                            <input type="hidden" name="idproduct" value="<?=$idproduct;?>">
+                                                            <button type="submit" class="btn btn-primary" name="update">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="delete<?=$idproduct;?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Delete Product?</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <form method="post">
+                                                        <div class="modal-body">
+                                                            Are you sure want delete <?=$name;?>?
+                                                            <input type="hidden" name="idproduct" value="<?=$idproduct;?>">
+                                                            <br>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <?php
                                             };
                                         ?>
@@ -139,12 +202,12 @@ require 'check.php';
 
         <!-- Modal Header -->
         <div class="modal-header">
-            <h4 class="modal-title">Modal Heading</h4>
+            <h4 class="modal-title">Add Product</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
         <!-- Modal body -->
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="modal-body">
                 <input type="text" name="name" placeholder="product name" class ="form-control" required>
                 <br>
@@ -153,6 +216,8 @@ require 'check.php';
                 <input type="number" name="price" class ="form-control" placeholder="price" required>
                 <br>
                 <input type="number" name="stock" class ="form-control" placeholder="stock" required>
+                <br>
+                <input type="file" name="file" class="form-control">
                 <br>
                 <button type="submit" class="btn btn-primary" name="addproduct">Submit</button>
             </div>

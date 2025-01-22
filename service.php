@@ -60,4 +60,31 @@ if(isset($_POST['sendproduct'])) {
     }
 }
 
+// Update info product
+if(isset($_POST['update'])) {
+    $idproduct = $_POST['idproduct'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+
+    $update = mysqli_query($conn, "update product set product_name='$name', deskripsi='$description' where product_id='$idproduct'");
+    if($update) {
+        header('location:index.php');
+    } else {
+        header('location:index.php');
+    }
+}
+
+// Delete Product
+if(isset($_POST['delete'])) {
+    $name = $_POST['name'];
+    $idproduct = $_POST['idproduct'];
+
+    $delete = mysqli_query($conn, "delete from product where product_id='$idproduct'");
+    if($delete) {
+        header('location:index.php');
+    } else {
+        header('location:index.php');
+    }
+}
+
 ?>
